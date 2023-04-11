@@ -13,5 +13,5 @@ public interface EmployeeService {
 
     Mono<EmployeeDto> updateEmployee(EmployeeDto employeeDto, String employeeId);
 
-    Mono<Void> deleteEmployee(String employeeId);
+    Mono<?> deleteEmployee(String employeeId);
 }

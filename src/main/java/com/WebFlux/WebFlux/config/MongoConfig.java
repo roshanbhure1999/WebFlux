@@ -1,6 +1,5 @@
 package com.WebFlux.WebFlux.config;
 
-
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +10,7 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 @Configuration
 public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
-
+    @Override
     public MongoClient reactiveMongoClient(){
         return MongoClients.create();
     }

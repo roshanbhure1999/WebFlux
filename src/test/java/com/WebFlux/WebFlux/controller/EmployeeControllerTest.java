@@ -49,18 +49,24 @@ class EmployeeControllerTest {
 
     @Test
     void getEmployee() {
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId("test");
+        employeeDto.setFirstName("Ramesh");
+        employeeDto.setLastName("Fadatare");
+        employeeDto.setEmail("ramesh@gmail.com");
 
-        EmployeeDto savedEmployee = employeeService.getEmployee("01").block();
+        employeeService.saveEmployee(employeeDto).block();
+        EmployeeDto savedEmployee = employeeService.getEmployee(employeeDto.getId()).block();
 
         webTestClient.get().uri("/api/employees/{id}", Collections.singletonMap("id", savedEmployee.getId()))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .consumeWith(System.out::println);
-//                .jsonPath("$.id").isEqualTo(savedEmployee.getId())
-//                .jsonPath("$.firstName").isEqualTo(employeeDto.getFirstName())
-//                .jsonPath("$.lastName").isEqualTo(employeeDto.getLastName())
-//                .jsonPath("$.email").isEqualTo(employeeDto.getEmail());
+                .consumeWith(System.out::println)
+                .jsonPath("$.id").isEqualTo(savedEmployee.getId())
+                .jsonPath("$.firstName").isEqualTo(employeeDto.getFirstName())
+                .jsonPath("$.lastName").isEqualTo(employeeDto.getLastName())
+                .jsonPath("$.email").isEqualTo(employeeDto.getEmail());
     }
 
     @Test
@@ -117,13 +123,14 @@ class EmployeeControllerTest {
     @Test
     void deleteEmployee() {
         EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId("test");
         employeeDto.setFirstName("Ramesh");
         employeeDto.setLastName("Fadatare");
         employeeDto.setEmail("ramesh@gmail.com");
 
         EmployeeDto savedEmployee = employeeService.saveEmployee(employeeDto).block();
 
-        webTestClient.delete().uri("/api/employees/{id}", Collections.singletonMap("id", savedEmployee.getId()))
+        webTestClient.delete().uri("/api/employees/{id}", Collections.singletonMap("id", employeeDto.getId()))
                 .exchange()
                 .expectStatus().isNoContent()
                 .expectBody()
