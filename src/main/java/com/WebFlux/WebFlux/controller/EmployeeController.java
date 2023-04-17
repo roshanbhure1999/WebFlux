@@ -28,7 +28,7 @@ public class EmployeeController {
         return employeeService.saveEmployee(employeeDto);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<EmployeeDto> getEmployee(@PathVariable("id") String employeeId) {
         return employeeService.getEmployee(employeeId);
@@ -40,7 +40,7 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto,
                                             @PathVariable("id") String employeeId) {

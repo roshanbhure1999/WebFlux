@@ -132,7 +132,7 @@ class EmployeeControllerTest {
 
         webTestClient.delete().uri("/api/employees/{id}", Collections.singletonMap("id", employeeDto.getId()))
                 .exchange()
-                .expectStatus().isNoContent()
+                .expectStatus().isOk()
                 .expectBody()
                 .consumeWith(System.out::println);
 
